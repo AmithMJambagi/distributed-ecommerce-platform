@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ecommerce
+  labels:
+    name: ecommerce
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecommerce-config
+  namespace: ecommerce
+data:
+  # Database configuration
+  DB_HOST: "postgres"
+  DB_PORT: "5432"
+  DB_NAME: "postgres"
+  DB_USERNAME: "root"
+
+  # Redis configuration
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+
+  # Kafka configuration
+  KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+
+  # Microservices internal DNS endpoints
+  SERVICES_PRODUCT_URL: "http://product-service:8080"
+  SERVICES_INVENTORY_URL: "http://inventory-service:8081"
+  SERVICES_ORDER_URL: "http://order-service:8082"
+  SERVICES_PAYMENT_URL: "http://payment-service:8084"
+
+  PRODUCT_SERVICE_URL: "http://product-service:8080"
+  INVENTORY_SERVICE_URL: "http://inventory-service:8081"
+
+  # Gateway CORS origin
+  CORS_ALLOWED_ORIGIN: "*"
+
+  # Razorpay Callback & Frontend Redirect URLs
+  RAZORPAY_CALLBACK_URL: "https://your-domain.com/api/v1/payments/callback"
+  FRONTEND_SUCCESS_URL: "https://your-domain.com/order-success"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ecommerce-secret
+  namespace: ecommerce
+type: Opaque
+stringData:
+  DB_PASSWORD: "your_database_password"
+  JWT_SECRET: "your-256-bit-secret-key-here-must-be-at-least-32-bytes"
+  RAZORPAY_KEY_ID: "your_razorpay_key_id"
+  RAZORPAY_KEY_SECRET: "your_razorpay_key_secret"

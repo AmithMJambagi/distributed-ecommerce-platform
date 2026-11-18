@@ -1,0 +1,59 @@
+# ==========================================
+# Operating System & IDE Files
+# ==========================================
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# ==========================================
+# Frontend (React / Vite / Node)
+# ==========================================
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ==========================================
+# Backend (Java / Spring Boot / Maven)
+# ==========================================
+**/target/
+**/.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+hs_err_pid*
+replay_pid*
+backend/logs/
+
+# ==========================================
+# Logs & Database Dumps
+# ==========================================
+*.log
+*.log.*
+*.gz
+dump.sql
+
+# ==========================================
+# Secrets & Environment Variables
+# ==========================================
+*.env
+*.env.local
+*.env.*.local
+
+# ==========================================
+# Temporary / Scratch Files
+# ==========================================
+conversation_id.txt
+azure_deploymenturl.txt
+*.docx
+/product_*.json
+/inventory_*.json
