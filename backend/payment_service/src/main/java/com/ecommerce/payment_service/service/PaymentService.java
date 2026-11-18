@@ -77,7 +77,13 @@ public class PaymentService {
 
 	public PaymentDetailsResponse getPaymentDetails(String orderId) {
 		Payment payment = paymentRepository.findByOrderId(orderId)
-				.orElseThrow(() -> new IllegalArgumentException("No payment record found for order: " + orderId));
+				.orElse(null);
+		
+        // If Kafka has not consumed the event yet, gracefully return PROCESSING with null paymentUrl
+        if (payment == null) {
+            log.info(">> [PAYMENT IN-FLIGHT] Order {} not yet persisted by Kafka consumer. Returning PROCESSING.", orderId);
+            return new PaymentDetailsResponse(orderId, null, 0L, "PROCESSING");
+        }
 
 		// fetch the 10 minute active payment link
 		String paymentUrl = stringRedisTemplate.opsForValue().get(REDIS_LINK_PREFIX + orderId);
